@@ -26,13 +26,15 @@ if(isset($_SESSION["huoma.admin"])){
 				$yuzhi = $row_zminfo["yuzhi"];
 				$qrcode = $row_zminfo["qrcode"];
 				$dqdate = $row_zminfo["dqdate"];
+				$zima_status = $row_zminfo["zima_status"];
 			}
 			$result = array(
 				"code" => "100",
 				"msg" => "获取成功",
 				"yuzhi" => $yuzhi,
 				"qrcode" => $qrcode,
-				"dqdate" => $dqdate
+				"zima_status" => $zima_status
+
 			);
 		}else{
 			$result = array(

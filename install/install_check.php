@@ -69,14 +69,26 @@ if (empty($dburl) || empty($dbuser) || empty($dbpwd) || empty($dbname) || empty(
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     wx_title VARCHAR(32),
     wx_id VARCHAR(32),
-    yuming TEXT(300),
-    wx_qrcode TEXT(300),
-    wx_num VARCHAR(32),
-    wx_shuoming TEXT(300),
+    wx_ldym TEXT(300),
     wx_status VARCHAR(32) DEFAULT '1',
     wx_update_time VARCHAR(32),
+    wx_moshi VARCHAR(32),
     wx_fwl VARCHAR(32) DEFAULT '0',
     wx_user VARCHAR(32))";
+
+    // 微信子码表
+    $huoma_wxzima = "CREATE TABLE huoma_wxzima (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    wx_id VARCHAR(32),
+    zmid VARCHAR(32),
+    xuhao INT(11),
+	fwl VARCHAR(32) DEFAULT '0',
+	qrcode TEXT(300),
+	update_time VARCHAR(32),
+	zima_status VARCHAR(32) DEFAULT '2',
+	wx_num VARCHAR(32),
+	wx_beizhu TEXT(300),
+	wx_yuzhi VARCHAR(32) DEFAULT '0')";
 
     // 邀请码表
     $huoma_yqm = "CREATE TABLE huoma_yqm (
@@ -86,10 +98,11 @@ if (empty($dburl) || empty($dbuser) || empty($dbpwd) || empty($dbname) || empty(
     yqm_usetime VARCHAR(32),
     yqm_daynum INT(11))";
 
-    // 落地页域名表
+    // 域名表（入口域名和落地域名）
     $huoma_yuming = "CREATE TABLE huoma_yuming (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    yuming TEXT(300))";
+    yuming TEXT(300),
+    ym_type VARCHAR(200))";
 
     // 续费套餐表
     $huoma_taocan = "CREATE TABLE huoma_taocan (
@@ -131,7 +144,8 @@ if (empty($dburl) || empty($dbuser) || empty($dbpwd) || empty($dbname) || empty(
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     qun_title VARCHAR(64),
     qun_hmid VARCHAR(32),
-    qun_yuming TEXT(300),
+    qun_rkym TEXT(300),
+    qun_ldym TEXT(300),
     qun_pv VARCHAR(32) DEFAULT '0',
     qun_wx_status VARCHAR(32),
     qun_wx_qrcode TEXT(300),
@@ -178,6 +192,7 @@ if (empty($dburl) || empty($dbuser) || empty($dbpwd) || empty($dbname) || empty(
     // 判断安装结果
     if ( $conn->query($huoma_user) === TRUE
       && $conn->query($huoma_wx) === TRUE
+      && $conn->query($huoma_wxzima) === TRUE
       && $conn->query($huoma_yqm) === TRUE
       && $conn->query($huoma_yuming) === TRUE
       && $conn->query($huoma_taocan) === TRUE
